@@ -1,0 +1,11 @@
+version: '3'
+                                                                             
+services:
+  bootnode:
+    build: .
+    environment:
+      RUST_LOG: info
+    ports:                                                             
+      - "2122:2122"
+    volumes:
+      - ./boot_db_d:/app/boot_db
