@@ -1,0 +1,54 @@
+[package]
+name = "bootnode"
+authors = ["Topology Foundation <contact@topology.gg>"]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.77.2"
+license = "MIT"
+exclude = [".github/"]
+
+[profile.release]
+lto = "thin"
+
+[dependencies]
+# misc
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+eyre = "0.6"
+
+# async
+futures = "0.3.5"
+tokio = { version = "1.28", features = [
+    "fs",
+    "macros",
+    "net",
+    "rt-multi-thread",
+    "sync",
+    "time",
+] }
+
+# p2p
+libp2p = { version = "0.53.2", features = ["tokio", "dns", "kad", "noise", "tcp", "yamux", "rsa", "macros", "identify"] }
+
+# logs
+rolling-file = "0.2.0"
+tracing = "0.1.0"
+tracing-appender = "0.2"
+tracing-subscriber = { version = "0.3", default-features = false, features = [
+    "env-filter",
+    "fmt",
+    "json",
+] }
+
+# db
+rocksdb = { version = "0.21.0", default-features = false, features = [
+    "snappy",
+    "lz4",
+    "zstd",
+    "zlib",
+    "jemalloc",
+] }
+
+[[bin]]
+path = "src/main.rs"
+name = "bootnode"
